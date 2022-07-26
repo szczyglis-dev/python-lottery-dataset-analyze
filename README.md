@@ -1,4 +1,4 @@
-**Python 3 / Jupyter / DataScience**, current release: **1.0.0** build 2022-07-26
+**Python 3 / Jupyter / Data Science**, current release: **1.0.0** build 2022-07-26
 
 # Python Lottery Dataset Analyze
 
@@ -362,7 +362,7 @@ print(df.to_string())
 
 
 ## Changelog
-**- 1.0.0** - published first release (2022-07-27)
+**- 1.0.0** - published first release (2022-07-26)
 
 ## Credits
  
