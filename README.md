@@ -2,7 +2,7 @@
 
 # Python Lottery Dataset Analyze
 
-**Jupyter's notebook illustrating several methods for analyzing a dataset with the historical results of various lotteries. The example shows how to analyze the linear relationship between individual fields, using the extension of the data set with astronomical data, and shows how to visualize the distribution of numbers at individual positions. The Skyfield package is used to calculate the distances between celestial bodies, this data is then appended to the dataset.**
+**Jupyter's notebook illustrating several methods for analyzing a dataset with the historical results of various lotteries. The example shows how to analyze the linear relationship between individual fields, using the extension of the data set with astronomical data, and shows how to visualize the distribution of numbers at individual positions. "Skyfield" package is used to calculate the distances between celestial bodies, this data is then appended to the dataset.**
 
 ## Requirements
 
@@ -48,13 +48,13 @@ csv_urls = {
 }
 
 # [CSV config]
-# headers - array with CSV column names
+# headers - list with CSV column names
 #   idx - number of record
 #   date - date field
 #   n(x) - primary number(x) field
 #   m(x) - secondary number(x) field
-# n_range - array with primary numbers range [from, to]
-# m_range - array with secondary numbers range [from, to]
+# n_range - list with primary numbers range [from, to]
+# m_range - list with secondary numbers range [from, to]
 # n_count - number of primary numbers
 # m_count - secondary of primary numbers
 # date_format - date field string format
@@ -121,8 +121,8 @@ The following cell defines the functions that will be used in subsequent blocks.
 ```python
 # create directory for CSV download if not exists
 def csv_dir_create(csv_dir):
-    pwd = os.getcwd()
-    csv_path = os.path.join(pwd, csv_dir)
+    current = os.getcwd()
+    csv_path = os.path.join(current, csv_dir)
     if not os.path.exists(csv_path):
         os.makedirs(csv_path)
         
@@ -139,15 +139,15 @@ def csv_update(csv_urls, csv_dir):
         
 # load CSV dataset        
 def csv_load(name, headers):
-    pwd = os.getcwd()
-    file = os.path.join(pwd, 'csv', name+'.csv')
+    current = os.getcwd()
+    file = os.path.join(current, 'csv', name+'.csv')
     return pd.read_csv(file, header=None, names=headers)
 
 
 # save dataframe to CSV file
 def csv_save(df, name):
-    pwd = os.getcwd()
-    file = os.path.join(pwd, 'csv', name+'.csv')
+    current = os.getcwd()
+    file = os.path.join(current, 'csv', name+'.csv')
     df.to_csv(file, index=False) 
     
 
@@ -185,7 +185,7 @@ def df_append_range(row, num_idx):
 
 **3. Download CSV files with data sets.**
 
-The cell below will download result sets to CSV files. In order not to download new data and to use only those already downloaded, this block should be commented out.
+The cell below will download data sets CSV files. In order not to download new data and to use only those already downloaded, this block should be commented out.
 
 ```python
 print('Downloading datasets....')
@@ -205,9 +205,9 @@ Downloaded: ./csv/minilotto.csv
 Downloaded: ./csv/multi.csv
 ```
 
-**4. Extend the result set with additional fields.**
+**4. Extend the data set with additional fields.**
 
-The following code expands the result set with new fields. Numerical values for the saved draw dates will be added to it, such as: year, month, day, day of the week and day of the year. In addition, the distances to individual celestial bodies (Earth - Moon, Earth - Sun, Earth - Mars) that occurred during each of the draws will be calculated and attached to the set. The set will also include fields that define the range of numbers at a given position.
+The following code expands the data set with new fields. Numerical values for the saved draw dates will be added to it, such as: year, month, day, day of the week and day of the year. In addition, the distances to individual celestial bodies (Earth - Moon, Earth - Sun, Earth - Mars) that occurred during each of the draws will be calculated and attached to the set. The set will also include fields that define the range of numbers at a given position.
 
 ```python
 # get CSV config for selected lottery
@@ -254,7 +254,7 @@ csv_save(df, lottery + '_extended')
 
 **5. Linear regression relationship calculation.**
 
-In the code below, the correlation between the events will be calculated, such as the influence of the distance between celestial bodies on the numbers and the correlation between the individual numbers among themselves. The result for the correlation between the distances of the celestial bodies and the given number will oscillate around 0 here, which will show that these events are not correlated with each other and cannot be used for any predictions. A slightly higher result will appear when you try to correlate the numbers that were drawn in a given draw with the other numbers drawn in the same draw.
+In the code below, the correlation between the events will be calculated, such as the influence of the distance between celestial bodies on the numbers and the correlation between the individual numbers among themselves. The result for the correlation between the distances of the celestial bodies and the given number will oscillate around 0 here, which will show that these events are not correlated with each other. A slightly higher result will appear when you try to correlate the numbers that were drawn in a given draw with the other numbers drawn in the same draw.
 
 ```python
 # define relationship pairs to check
