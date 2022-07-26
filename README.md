@@ -18,10 +18,6 @@
 - scipy
 - skyfield
 
-## Screenshots
-
-![lot_relations](https://user-images.githubusercontent.com/61396542/181067860-17e4300f-eaa9-4b93-a394-c0ad8ef072f9.png)
-![lot_nums](https://user-images.githubusercontent.com/61396542/181068072-fe838cab-af6e-41c8-a9dd-35c9316eedd7.png)
 ![lot_dataset](https://user-images.githubusercontent.com/61396542/181068160-e7971313-7dc1-45d5-86b0-f1755d61ebdc.png)
 
 ## Usage step by step
