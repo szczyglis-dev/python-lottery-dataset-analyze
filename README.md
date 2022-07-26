@@ -233,7 +233,7 @@ df['dist_mars_au'] = df.apply(lambda row: df_append_astro_distance(earth, mars, 
 # append decimal ranges of numbers to rn1-rn(i) fields that corresponds numbers on positions n1-n(i)
 limit = cfg['n_count']
 if limit > 0:
-    for i in range(1, limit):
+    for i in range(1, limit+1):
         range_field = 'n' + str(i) + 'r'
         num_field = 'n' + str(i)           
         df[range_field] = df.apply(lambda row: df_append_range(row, num_field), axis=1)
@@ -241,7 +241,7 @@ if limit > 0:
 # append decimal ranges of numbers to rm1-rm(i) fields that corresponds numbers on positions m1-m(i)
 limit = cfg['m_count']
 if limit > 0:
-    for i in range(1, limit):
+    for i in range(1, limit+1):
         range_field = 'm' + str(i) + 'r'
         num_field = 'm' + str(i)           
         df[range_field] = df.apply(lambda row: df_append_range(row, num_field), axis=1)
