@@ -215,7 +215,7 @@ cfg = csv_config[lottery]
 dt_format = cfg['date_format']
 headers = cfg['headers']
 
-# load CSV dataset and create dataframe from it
+# load CSV dataset and create Data Frame from it
 df = csv_load(lottery, headers)
 
 # append date parts as integers
@@ -230,7 +230,7 @@ df['dist_moon_au'] = df.apply(lambda row: df_append_astro_distance(earth, moon, 
 df['dist_sun_au'] = df.apply(lambda row: df_append_astro_distance(earth, sun, row, dt_format), axis=1)
 df['dist_mars_au'] = df.apply(lambda row: df_append_astro_distance(earth, mars, row, dt_format), axis=1)
 
-# append decimal ranges of numbers to rn1-rn(i) fields that corresponds numbers on positions n1-n(i)
+# append decimal ranges of numbers to n(i)r fields that corresponds numbers at positions n1-n(i)
 limit = cfg['n_count']
 if limit > 0:
     for i in range(1, limit+1):
@@ -238,7 +238,7 @@ if limit > 0:
         num_field = 'n' + str(i)           
         df[range_field] = df.apply(lambda row: df_append_range(row, num_field), axis=1)
 
-# append decimal ranges of numbers to rm1-rm(i) fields that corresponds numbers on positions m1-m(i)
+# append decimal ranges of numbers to m(i)r fields that corresponds numbers at positions m1-m(i)
 limit = cfg['m_count']
 if limit > 0:
     for i in range(1, limit+1):
@@ -290,22 +290,24 @@ for name, item in relations.items():
         rX.append(name)
         rY.append(r)
         print(x1+' > '+x2+': ' + str(r))
+        
+rY, rX = zip(*sorted(zip(rY, rX)))
     
 # display relationships on plot
 fig = plt.figure()
 fig.set_figheight(5)
-fig.set_figwidth(25)
+fig.set_figwidth(15)
 ax = fig.add_subplot(1, 1, 1)
 ax.set_title('Relationship')
-ax.set_xlabel('Pair')
-ax.set_ylabel('R value')
-ax.plot(rX, rY)
+ax.set_ylabel('Pair')
+ax.set_xlabel('R value')
+ax.barh(rX, rY)
 plt.show()
 ```
 
 **Output:**
 
-![lot_relations](https://user-images.githubusercontent.com/61396542/181067860-17e4300f-eaa9-4b93-a394-c0ad8ef072f9.png)
+![relations](https://user-images.githubusercontent.com/61396542/181093223-68f3f239-8386-4502-8d74-d4c84ce5c8e2.png)
 
 **6. Distributions of the frequency of occurrence of numbers in particular positions.**
 
