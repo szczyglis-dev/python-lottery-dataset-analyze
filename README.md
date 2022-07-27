@@ -56,7 +56,7 @@ csv_urls = {
 # n_range - list with primary numbers range [from, to]
 # m_range - list with secondary numbers range [from, to]
 # n_count - number of primary numbers
-# m_count - secondary of primary numbers
+# m_count - number of secondary numbers
 # date_format - date field string format
 
 csv_config = {
