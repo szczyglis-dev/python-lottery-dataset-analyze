@@ -43,7 +43,7 @@ csv_urls = {
     'lotto_plus': 'https://www.wynikilotto.net.pl/download/lotto_plus.csv',
     'eurojackpot': 'https://www.wynikilotto.net.pl/download/eurojackpot.csv',
     'minilotto': 'https://www.wynikilotto.net.pl/download/mini_lotto.csv',
-    'multi': 'https://www.wynikilotto.net.pl/download/multi_multi.csv'    
+    'multi': 'https://www.wynikilotto.net.pl/download/multi_multi.csv'
 }
 
 # [CSV config]
