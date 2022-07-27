@@ -104,7 +104,7 @@ csv_config = {
 }
 
 # specify download dir for CSV files
-csv_dir = './csv'
+csv_dir = os.path.join(os.getcwd(), 'csv')
 
 # choose lottery
 lottery = 'lotto'
@@ -121,10 +121,8 @@ The following cell defines the functions that will be used in subsequent blocks.
 ```python
 # create directory for CSV download if not exists
 def csv_dir_create(csv_dir):
-    current = os.getcwd()
-    csv_path = os.path.join(current, csv_dir)
-    if not os.path.exists(csv_path):
-        os.makedirs(csv_path)
+    if not os.path.exists(csv_dir):
+        os.makedirs(csv_dir)
         
 
 # download and save CSV dataset
@@ -138,16 +136,14 @@ def csv_update(csv_urls, csv_dir):
         
         
 # load CSV dataset        
-def csv_load(name, header):
-    current = os.getcwd()
-    file = os.path.join(current, 'csv', name+'.csv')
+def csv_load(name, header, csv_dir):
+    file = os.path.join(csv_dir, name+'.csv')
     return pd.read_csv(file, header=None, names=header)
 
 
 # save dataframe to CSV file
-def csv_save(df, name):
-    current = os.getcwd()
-    file = os.path.join(current, 'csv', name+'.csv')
+def csv_save(df, name, csv_dir):
+    file = os.path.join(csv_dir, name+'.csv')
     df.to_csv(file, index=False) 
     
 
@@ -216,7 +212,7 @@ dt_format = cfg['date_format']
 header = cfg['header']
 
 # load CSV dataset and create Data Frame from it
-df = csv_load(lottery, header)
+df = csv_load(lottery, header, csv_dir)
 
 # append date parts as integers
 df['year'] = df.apply(lambda row: df_append_date_part('%Y', row, dt_format), axis=1)
@@ -247,7 +243,7 @@ if limit > 0:
         df[range_field] = df.apply(lambda row: df_append_range(row, num_field), axis=1)
 
 # save extended dataset with appended extra data
-csv_save(df, lottery + '_extended')
+csv_save(df, lottery + '_extended', csv_dir)
 
 #df = df.iloc[4424:,:] # you can truncate dataset to period in time
 ```
