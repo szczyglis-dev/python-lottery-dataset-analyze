@@ -32,7 +32,6 @@ import math
 from datetime import datetime
 import requests
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import linregress
@@ -51,6 +50,7 @@ csv_urls = {
 # headers - list with CSV column names
 #   idx - number of record
 #   date - date field
+#   time - time/hour field
 #   n(x) - primary number(x) field
 #   m(x) - secondary number(x) field
 # n_range - list with primary numbers range [from, to]
@@ -94,7 +94,7 @@ csv_config = {
     },
     'multi': {
         'headers': ['idx', 'date', 'time', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 
-                    'n10', 'n11', 'n12', 'n13', 'n14', 'n15', 'n16', 'n17', 'n18', 'n19', 'n20', 'x1'],
+                    'n10', 'n11', 'n12', 'n13', 'n14', 'n15', 'n16', 'n17', 'n18', 'n19', 'n20', 'm1'],
         'n_range': [1, 80],
         'm_range': [1, 80],
         'n_count': 20,
