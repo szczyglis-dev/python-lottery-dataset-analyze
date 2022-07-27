@@ -47,7 +47,7 @@ csv_urls = {
 }
 
 # [CSV config]
-# headers - list with CSV column names
+# header - list with CSV column names
 #   idx - number of record
 #   date - date field
 #   time - time/hour field
@@ -61,7 +61,7 @@ csv_urls = {
 
 csv_config = {
     'lotto': {        
-        'headers': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6'],
+        'header': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6'],
         'n_range': [1, 49],
         'm_range': [],
         'n_count': 6,
@@ -69,7 +69,7 @@ csv_config = {
         'date_format': '%d.%m.%Y'
     },
     'lotto_plus': {
-        'headers': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6'],
+        'header': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6'],
         'n_range': [1, 49],
         'm_range': [],
         'n_count': 6,
@@ -77,7 +77,7 @@ csv_config = {
         'date_format': '%d.%m.%Y'
     },
     'eurojackpot': {
-        'headers': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'm1', 'm2'],
+        'header': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5', 'm1', 'm2'],
         'n_range': [1, 50],
         'm_range': [1, 12],
         'n_count': 5,
@@ -85,7 +85,7 @@ csv_config = {
         'date_format': '%d.%m.%Y'
     },
     'minilotto': {
-        'headers': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5'],
+        'header': ['idx', 'date', 'n1', 'n2', 'n3', 'n4', 'n5'],
         'n_range': [1, 42],
         'm_range': [],
         'n_count': 5,
@@ -93,7 +93,7 @@ csv_config = {
         'date_format': '%d.%m.%Y'
     },
     'multi': {
-        'headers': ['idx', 'date', 'time', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 
+        'header': ['idx', 'date', 'time', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 
                     'n10', 'n11', 'n12', 'n13', 'n14', 'n15', 'n16', 'n17', 'n18', 'n19', 'n20', 'm1'],
         'n_range': [1, 80],
         'm_range': [1, 80],
@@ -138,10 +138,10 @@ def csv_update(csv_urls, csv_dir):
         
         
 # load CSV dataset        
-def csv_load(name, headers):
+def csv_load(name, header):
     current = os.getcwd()
     file = os.path.join(current, 'csv', name+'.csv')
-    return pd.read_csv(file, header=None, names=headers)
+    return pd.read_csv(file, header=None, names=header)
 
 
 # save dataframe to CSV file
@@ -213,10 +213,10 @@ The following code expands the data set with new fields. Numerical values for th
 # get CSV config for selected lottery
 cfg = csv_config[lottery]
 dt_format = cfg['date_format']
-headers = cfg['headers']
+header = cfg['header']
 
 # load CSV dataset and create Data Frame from it
-df = csv_load(lottery, headers)
+df = csv_load(lottery, header)
 
 # append date parts as integers
 df['year'] = df.apply(lambda row: df_append_date_part('%Y', row, dt_format), axis=1)
