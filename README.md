@@ -1,8 +1,8 @@
-**Python 3 / Jupyter / Data Science**, current release: **1.0.0** build 2022-07-26
+Release: **1.0.1** | build: **2024.08.26** | Jupyter Notebook, Data Science, Python: **>=3.7**
 
 # Python Lottery Dataset Analyze
 
-**Jupyter's notebook illustrating several methods for analyzing a dataset with the historical results of various lotteries. The example shows how to analyze the linear relationship between individual fields, using the extension of the data set with astronomical data, and shows how to visualize the distribution of numbers at individual positions. "Skyfield" package is used to calculate the distances between celestial bodies, this data is then appended to the dataset.**
+**This Jupyter notebook illustrates several methods for analyzing a dataset containing historical results from various lotteries. The example demonstrates how to analyze the linear relationships between individual fields by extending the dataset with astronomical data. Additionally, it shows how to visualize the distribution of numbers in specific positions. The `skyfield` package is used to calculate the distances between celestial bodies, and this data is subsequently appended to the dataset.**
 
 ## Requirements
 
@@ -18,13 +18,17 @@
 - scipy
 - skyfield
 
+**Screenshot of the Final Result**
+
 ![lot_dataset](https://user-images.githubusercontent.com/61396542/181068160-e7971313-7dc1-45d5-86b0-f1755d61ebdc.png)
 
 ## Usage step by step
 
-**1. Configuration, initialization and modules import.**
+**1. Configuration, Initialization, and Module Import**
 
-Historical drawing results for several popular number lotteries in Poland will be used as input data. The results of the draws will be downloaded to CSV files and saved in a local directory on the disk. The block includes the configuration for each of these lotteries, such as the names of the columns that will be used later in the DataFrame object created from the data set, ranges of numbers, and the format in which the individual drawing dates are saved. At the end of the block, specify the name of the lottery for which the data will be analyzed. The block will also load astronomical data for several celestial bodies, which will then be used to extend the data set with the distances between individual celestial bodies during a given draw. This will be used to test the correlation between these events/variables.
+We will use historical drawing results for several popular number lotteries in Poland as input data. The draw results will be downloaded to `CSV` files and saved in a local directory on the disk. 
+
+The block below includes configurations for each of these lotteries, such as the names of the columns that will be used later in the `DataFrame` object created from the dataset, number ranges, and the format in which the individual drawing dates are saved. At the end of the block, you should specify the name of the lottery to be analyzed. This block will also load astronomical data for several celestial bodies, which will then be used to extend the dataset with the distances between these celestial bodies at the time of each draw. This data will be used to test the correlation between these events/variables.
 
 ```python
 import os
@@ -114,9 +118,9 @@ planets = load('de421.bsp')
 earth, moon, sun, mars = planets['earth'], planets['moon'], planets['sun'], planets['mars']  
 ```
 
-**2. Functions definitions.**
+**2. Function Definitions**
 
-The following cell defines the functions that will be used in subsequent blocks. Functions include downloading and saving the data set to CSV and extending the downloaded data set with new values that will then be used for further analysis.
+The following cell defines the functions that will be used in subsequent blocks. These functions include downloading and saving the dataset to CSV files and extending the downloaded dataset with new values, which will then be used for further analysis.
 
 ```python
 # create directory for CSV download if not exists
@@ -179,9 +183,9 @@ def df_append_range(row, num_idx):
         j+= 10
 ```
 
-**3. Download CSV files with data sets.**
+**3. Download CSV Files with Datasets**
 
-The cell below will download data sets CSV files. In order not to download new data and to use only those already downloaded, this block should be commented out.
+The cell below will download CSV files containing the datasets. **Tip:** to avoid downloading new data and instead use the already downloaded files, this block should be commented out after the data has been downloaded.
 
 ```python
 print('Downloading datasets....')
@@ -201,9 +205,9 @@ Downloaded: ./csv/minilotto.csv
 Downloaded: ./csv/multi.csv
 ```
 
-**4. Extend the data set with additional fields.**
+**4. Extend the Dataset with Additional Fields**
 
-The following code expands the data set with new fields. Numerical values for the saved draw dates will be added to it, such as: year, month, day, day of the week and day of the year. In addition, the distances to individual celestial bodies (Earth - Moon, Earth - Sun, Earth - Mars) that occurred during each of the draws will be calculated and attached to the set. The set will also include fields that define the range of numbers at a given position.
+The following code expands the dataset with new fields. Numerical values for the saved draw dates will be added, such as year, month, day, day of the week, and day of the year. Additionally, the distances to individual celestial bodies (Earth-Moon, Earth-Sun, Earth-Mars) at the time of each draw will be calculated and appended to the dataset. The dataset will also include fields that define the range of numbers at a given position.
 
 ```python
 # get CSV config for selected lottery
@@ -248,9 +252,9 @@ csv_save(df, lottery + '_extended', csv_dir)
 #df = df.iloc[4424:,:] # you can truncate dataset to period in time
 ```
 
-**5. Linear regression relationship calculation.**
+**5. Linear Regression Relationship Calculation**
 
-In the code below, the correlation between the events will be calculated, such as the influence of the distance between celestial bodies on the numbers and the correlation between the individual numbers among themselves. The result for the correlation between the distances of the celestial bodies and the given number will oscillate around 0 here, which will show that these events are not correlated with each other. A slightly higher result will appear when you try to correlate the numbers that were drawn in a given draw with the other numbers drawn in the same draw.
+The code below calculates the correlation between various events, such as the impact of the distances between celestial bodies on the lottery numbers and the correlation between individual lottery numbers themselves. The correlation between the distances of celestial bodies and the numbers is expected to oscillate around 0, indicating that these events are not correlated. A slightly higher correlation may appear when attempting to correlate the numbers drawn in the same draw with each other.
 
 ```python
 # define relationship pairs to check
@@ -275,7 +279,7 @@ relations = {
 }
 
 # calculate linear regression relationship between fields
-print("[R] - linear regression relationship:\n")
+print("[R] - Linear Regression Relationship:\n")
 rX = []
 rY = []
 for name, item in relations.items():
@@ -305,12 +309,12 @@ plt.show()
 
 ![relations](https://user-images.githubusercontent.com/61396542/181093223-68f3f239-8386-4502-8d74-d4c84ce5c8e2.png)
 
-**6. Distributions of the frequency of occurrence of numbers in particular positions.**
+**6. Distribution of the Frequency of Numbers in Specific Positions**
 
-The following cell displays the frequency distribution of the given numbers by their position.
+The following cell displays the frequency distribution of the drawn numbers, categorized by their positions.
 
 ```python
-print('Distributions of the frequency of occurrence of numbers in particular positions:')
+print('Distribution of the Frequency of Numbers in Specific Positions:')
 
 num_of_numbers = cfg['n_count']
 cols = 3
@@ -340,9 +344,9 @@ plt.show()
 ![lot_nums](https://user-images.githubusercontent.com/61396542/181068072-fe838cab-af6e-41c8-a9dd-35c9316eedd7.png)
 
 
-**7. Display a dataset.**
+**7. Display the Dataset**
 
-The cell below displays the extended data set prepared in the previous steps.
+The cell below displays the extended dataset that was prepared in the previous steps.
 
 ```python
 # display dataset
@@ -356,7 +360,10 @@ print(df.to_string())
 
 
 ## Changelog
-**- 1.0.0** - published first release (2022-07-26)
+
+**1.0.0** - First release (2022-07-26)
+
+**1.0.1** - Updated documentation (2024-08-26)
 
 --- 
 **Notebook is free to use, but if you like it, you can support my work by buying me a coffee ;)**
